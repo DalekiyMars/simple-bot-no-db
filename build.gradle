@@ -1,0 +1,42 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.3.1'
+	id 'io.spring.dependency-management' version '1.1.5'
+}
+
+group = 'com.tg-quiz'
+version = getVersion()
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	implementation 'org.springframework.boot:spring-boot-starter'
+
+	implementation "org.telegram:telegrambots:${TELEGRAMBOTS_VERSION}"
+	implementation "com.google.code.gson:gson:${GSON_VERSION}"
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+def getVersion() {
+	return "${MAJOR}.${MINOR}.${PATCH}"
+}
