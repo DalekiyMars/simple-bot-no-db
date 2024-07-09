@@ -32,7 +32,7 @@ public class StartQuizCommand implements DefaultCommand<SendMessage> {
     private SendMessage createMessage(Context context, List<Question> questionList) {
 
         final SendMessage message = new SendMessage();
-        message.setChatId(String.valueOf(context.getUpdate().getMessage().getChatId()));
+        message.setChatId(String.valueOf(context.getUpdate().getMessage().getChatId())); //FIXME обсер с выводом пользователю
         message.setText(questionList.getFirst().toString());
         return message;
     }
