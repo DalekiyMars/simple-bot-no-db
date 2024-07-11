@@ -2,23 +2,26 @@
   "Quests":
   [
     {
-      "question": "Enter a name by which you can be addressed"
-
+      "question": "Enter a name by which you can be addressed",
+      "answers" : [null]
     },
 
     {
-      "question": "Enter your phone number to interact with you"
-
+      "question": "Enter your phone number to interact with you",
+      "answers" : [null]
     },
 
     {
-      "question": "What bot do you want?"
-
+      "question": "What bot do you want?",
+      "answers" : [
+        "mlwg",
+        "amq"
+      ]
     },
 
     {
-      "question": "Write what bot needed about. Everything - what is it needed to, what should I be able to do, etc."
-
+      "question": "Write what bot needed about. Everything - what is it needed to, what should I be able to do, etc.",
+      "answers" : [null]
     }
   ]
 

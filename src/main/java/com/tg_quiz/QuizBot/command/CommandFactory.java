@@ -1,7 +1,7 @@
 package com.tg_quiz.QuizBot.command;
 
-import com.tg_quiz.QuizBot.command.all_commands.MessageSender;
 import com.tg_quiz.QuizBot.command.all_commands.StartCommand;
+import com.tg_quiz.QuizBot.command.all_commands.StartQuizCommand;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.botapimethods.BotApiMethodMessage;
@@ -18,7 +18,7 @@ import static com.tg_quiz.QuizBot.constants.Constants.Commands.START;
 public class CommandFactory {
     private static Map<String, DefaultCommand<? extends BotApiMethodMessage>> commands = new HashMap<>();
 
-    public CommandFactory(StartCommand startCommand, MessageSender startQuizCommand) {
+    public CommandFactory(StartCommand startCommand, StartQuizCommand startQuizCommand) {
         commands.put(START, startCommand);
         commands.put(GET_STARTED, startQuizCommand);
     }
