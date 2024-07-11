@@ -10,7 +10,7 @@ public class Question {
     @SerializedName("question")
     private String question;
 
-    @SerializedName("")
+    @SerializedName("answers")
     private List<String> answers;
 
 }

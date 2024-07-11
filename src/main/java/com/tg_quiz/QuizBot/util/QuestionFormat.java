@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class QuestionFormat {
-    public SendMessage executeCommand(Context context, Question question) {
+public class QuestionFormat { //FIXME кнопки не выводятся, если их больше 1
+    public SendMessage mapMessage(Context context, Question question) {
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(String.valueOf(context.getUpdate().getMessage().getChatId()));
         sendMessage.setText(question.getQuestion());
@@ -25,7 +25,7 @@ public class QuestionFormat {
         return sendMessage;
     }
 
-    private static List<InlineKeyboardButton> getInlineKeyboardButtons(Question question) {
+    private List<InlineKeyboardButton> getInlineKeyboardButtons(Question question) { //TODO добавить проверку на null
         List<InlineKeyboardButton> rowInline1 = new ArrayList<>();
         InlineKeyboardButton inlineKeyboardButton1 = new InlineKeyboardButton();
         for (var elem :
