@@ -32,8 +32,8 @@ public class QuestionFormat { //FIXME кнопки не выводятся, ес
                 question.getAnswers()) {
             inlineKeyboardButton1.setText(elem);
             inlineKeyboardButton1.setCallbackData(elem);
+            rowInline1.add(inlineKeyboardButton1);
         }
-        rowInline1.add(inlineKeyboardButton1);
         return rowInline1;
     }
 }

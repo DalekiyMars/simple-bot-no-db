@@ -16,6 +16,7 @@ public class StartQuizCommand implements DefaultCommand<SendMessage> {
     private final MessageService messageService;
     @Override
     public SendMessage executeCommand(Context context, UserState user){
+        user.setTelegramTag(context.getUpdate().getMessage().getChat().getUserName());
         return messageService.createMessage(context, user);
     }
 

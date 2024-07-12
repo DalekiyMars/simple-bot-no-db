@@ -14,8 +14,8 @@
     {
       "question": "What bot do you want?",
       "answers" : [
-        "mlwg",
-        "amq"
+        "Chat-bot",
+        "Quiz-bot"
       ]
     },
 

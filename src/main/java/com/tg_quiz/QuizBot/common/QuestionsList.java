@@ -5,9 +5,11 @@ import lombok.Data;
 
 import java.util.List;
 
+import static com.tg_quiz.QuizBot.constants.Constants.Paths.QUESTIONS;
+
 @Data
 public class QuestionsList {
 
-    @SerializedName("Quests")
+    @SerializedName(QUESTIONS)
     private List<Question> stairs;
 }

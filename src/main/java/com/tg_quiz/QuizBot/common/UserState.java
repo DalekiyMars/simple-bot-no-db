@@ -10,6 +10,7 @@ public class UserState {
     private int currentQuestion;
     private Map<String, String> answers;
     private final long chatId;
+    private String telegramTag;
 
     public UserState(long chatId) {
         this.currentQuestion = -1;
