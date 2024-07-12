@@ -17,8 +17,8 @@ public class MessageService {
     public SendMessage createMessage(Context context, UserState user) {
         if (user.getCurrentQuestion() < questionService.getQuestions().getStairs().size() -1){
             user.setCurrentQuestion(user.getCurrentQuestion()+1);
-            log.info("Пользователь {} получил вопрос {}", user.getTelegramTag(), questionService.getQuestions().getStairs().get(  user.getCurrentQuestion()));
-            return questionFormat.mapMessage(context, questionService.getQuestions().getStairs().get(user.getCurrentQuestion()));
+            log.info("Пользователь {} получил вопрос {}", user.getTelegramTag(), questionService.getQuestions().getStairs().get(user.getCurrentQuestion()).getQuestion());
+            return questionFormat.mapMessage(context, questionService.getQuestions().getStairs().get(user.getCurrentQuestion()), user);
         }
         log.info("Пользователь {} закончил квиз", user.getTelegramTag());
         return SendMessage.builder()

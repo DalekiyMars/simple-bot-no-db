@@ -2,6 +2,9 @@ package com.tg_quiz.QuizBot.util;
 
 import com.tg_quiz.QuizBot.common.Context;
 import com.tg_quiz.QuizBot.common.Question;
+import com.tg_quiz.QuizBot.common.UserState;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
@@ -10,30 +13,46 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKe
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Component
-public class QuestionFormat { //FIXME кнопки не выводятся, если их больше 1
-    public SendMessage mapMessage(Context context, Question question) {
-        SendMessage sendMessage = new SendMessage();
-        sendMessage.setChatId(String.valueOf(context.getUpdate().getMessage().getChatId()));
-        sendMessage.setText(question.getQuestion());
+@RequiredArgsConstructor
+public class QuestionFormat {
+    public SendMessage mapMessage(Context context, Question question, UserState user) {
         InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
-        List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
-        List<InlineKeyboardButton> rowInline1 = getInlineKeyboardButtons(question);
-        rowsInline.add(rowInline1);
-        markupInline.setKeyboard(rowsInline);
+        SendMessage sendMessage = SendMessage.builder()
+                                .chatId(String.valueOf(context.getUpdate().getMessage().getChatId()))
+                                .text(question.getQuestion())
+                                .build();
+
+        markupInline.setKeyboard(answersHandler(context, user, question));
         sendMessage.setReplyMarkup(markupInline);
         return sendMessage;
     }
 
-    private List<InlineKeyboardButton> getInlineKeyboardButtons(Question question) { //TODO добавить проверку на null
+    private List<InlineKeyboardButton> getInlineKeyboardButtons(String answer) { //TODO добавить проверку на null
         List<InlineKeyboardButton> rowInline1 = new ArrayList<>();
-        InlineKeyboardButton inlineKeyboardButton1 = new InlineKeyboardButton();
-        for (var elem :
-                question.getAnswers()) {
-            inlineKeyboardButton1.setText(elem);
-            inlineKeyboardButton1.setCallbackData(elem);
-            rowInline1.add(inlineKeyboardButton1);
-        }
+        rowInline1.add(InlineKeyboardButton.builder().text(answer).callbackData(answer.toUpperCase()).build());
         return rowInline1;
+    }
+    private List<List<InlineKeyboardButton>> answersHandler(Context context, UserState user, Question question){
+        List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
+        if (question.getAnswers().isEmpty()){
+            switch (user.getCurrentQuestion()){
+                case 0:
+                    log.info("Выведено имя пользователя в кнопках");
+                    rowsInline.add(getInlineKeyboardButtons(context.getUpdate().getMessage().getChat().getFirstName()));
+                    break;
+                case 1:
+                    log.info("Выведено BIO в кнопках");
+                    rowsInline.add(getInlineKeyboardButtons(context.getUpdate().getMessage().getChat().getUserName()));
+                    break;
+            }
+        } else {
+            for (var elem :
+                    question.getAnswers()) {
+                rowsInline.add(getInlineKeyboardButtons(elem));
+            }
+        }
+        return rowsInline;
     }
 }

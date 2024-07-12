@@ -33,7 +33,7 @@ public class TelegramBotListener extends TelegramLongPollingBot {
     }
 
     @Override
-    public void onUpdateReceived(Update update) {
+    public void onUpdateReceived(Update update) { //TODO обработка кнопок, нажатых пользователем
         if (update.hasMessage() && update.getMessage().hasText()) {
             UserState user = findUser(update.getMessage().getChatId());
 
@@ -49,7 +49,7 @@ public class TelegramBotListener extends TelegramLongPollingBot {
         }
     }
 
-    private UserState findUser(long chatId){ // TODO для повторно проходящих опрос пользователей переделать логику проверки chatId
+    private UserState findUser(long chatId){
         if (!userStates.containsKey(chatId)) {
             UserState userState = new UserState(chatId);
             userStates.put(chatId, userState);
