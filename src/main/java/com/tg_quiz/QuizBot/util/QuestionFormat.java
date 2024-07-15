@@ -29,9 +29,9 @@ public class QuestionFormat {
         return sendMessage;
     }
 
-    private List<InlineKeyboardButton> getInlineKeyboardButtons(String answer) { //TODO добавить проверку на null
+    private List<InlineKeyboardButton> getInlineKeyboardButtons(String answer) {
         List<InlineKeyboardButton> rowInline1 = new ArrayList<>();
-        rowInline1.add(InlineKeyboardButton.builder().text(answer).callbackData(answer.toUpperCase()).build());
+        rowInline1.add(InlineKeyboardButton.builder().text(answer).callbackData(answer).build());
         return rowInline1;
     }
     private List<List<InlineKeyboardButton>> answersHandler(Context context, UserState user, Question question){
@@ -43,7 +43,7 @@ public class QuestionFormat {
                     rowsInline.add(getInlineKeyboardButtons(context.getUpdate().getMessage().getChat().getFirstName()));
                     break;
                 case 1:
-                    log.info("Выведено BIO в кнопках");
+                    log.info("Выведено userName в кнопках");
                     rowsInline.add(getInlineKeyboardButtons(context.getUpdate().getMessage().getChat().getUserName()));
                     break;
             }

@@ -7,7 +7,7 @@ CREATE TABLE users
     chat_id    INTEGER UNIQUE                NOT NULL,
     name       VARCHAR                       NOT NULL,
     phone_num  VARCHAR                       NOT NULL,
-    bot_scpecs VARCHAR                       NOT NULL,
+    bot_specs  VARCHAR                       NOT NULL,
     bot_state  VARCHAR                       NOT NULL
 );
 

@@ -7,18 +7,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
-import java.io.IOException;
-
 @Component
 @Slf4j
 public class RestartCommand implements DefaultCommand<SendMessage> {
     @Override
-    public SendMessage executeCommand(Context context, UserState userState) throws IOException {
+    public SendMessage executeCommand(Context context, UserState userState) {
         return refreshAllDataUser(userState);
     }
 
     private SendMessage refreshAllDataUser (UserState userState){
-        //TODO удаление записи о пользователе
         log.info("Пользователь {} хочет перепройти опрос", userState.getTelegramTag());
         userState.setCurrentQuestion(-1);
 
