@@ -26,7 +26,8 @@ public class MenuInitializer {
         final List<BotCommand> commands = new ArrayList<>();
         commands.add(new BotCommand(START, START_DESCRIPTION));
         commands.add(new BotCommand(GET_STARTED, GET_STARTED_DESCRIPTION));
-
+        commands.add(new BotCommand(RESTART_QUIZ, RESTART_QUIZ_DESCRIPTION));
+        log.info("Меню бота загрузилось");
         try {
             botListener.execute(new SetMyCommands(commands, new BotCommandScopeDefault(), null));
         } catch (TelegramApiException e) {

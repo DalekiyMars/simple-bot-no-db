@@ -2,6 +2,7 @@ package com.tg_quiz.QuizBot.command.all_commands;
 
 import com.tg_quiz.QuizBot.command.DefaultCommand;
 import com.tg_quiz.QuizBot.common.Context;
+import com.tg_quiz.QuizBot.common.UserState;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -13,7 +14,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 public class StartCommand implements DefaultCommand<SendMessage> {
 
     @Override
-    public SendMessage executeCommand(Context context) {
+    public SendMessage executeCommand(Context context, UserState userState) {
         log.info("Выполнение команды /start пользователю {}", context.getUpdate().getMessage().getChat().getUserName());
         return getAnswer(context.getUpdate());
     }

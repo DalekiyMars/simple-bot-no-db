@@ -8,7 +8,8 @@ public class Constants {
         public static final String GET_STARTED = "/ready";
         public static final String START_DESCRIPTION = "Начало диалога";
         public static final String GET_STARTED_DESCRIPTION = "Начало опроса";
-
+        public static final String RESTART_QUIZ = "/restart";
+        public static final String RESTART_QUIZ_DESCRIPTION = "Пройти опрос заново";
 
     }
 
