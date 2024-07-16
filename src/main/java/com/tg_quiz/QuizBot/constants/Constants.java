@@ -19,4 +19,8 @@ public class Constants {
 
     }
 
+    public static class Tests{
+        public static final String BASE_BOT_URI = "https://api.telegram.org/bot7370127154:AAFwISqf9Z08VV1UGBuc8eCHrmdqzoQPsXs";
+    }
+
 }
