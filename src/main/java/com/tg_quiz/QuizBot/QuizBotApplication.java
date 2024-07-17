@@ -2,11 +2,11 @@ package com.tg_quiz.QuizBot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
+@EnableScheduling
 @SpringBootApplication
 public class QuizBotApplication {
-
-	//TODO Sheduler добавить (опцианально) таймер
 	public static void main(String[] args) {
 		SpringApplication.run(QuizBotApplication.class, args);
 	}

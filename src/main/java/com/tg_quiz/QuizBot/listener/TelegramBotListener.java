@@ -5,6 +5,7 @@ import com.tg_quiz.QuizBot.common.UserState;
 import com.tg_quiz.QuizBot.config.Config;
 import com.tg_quiz.QuizBot.mapper.ContextMapper;
 import com.tg_quiz.QuizBot.service.MessageService;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -22,6 +23,8 @@ public class TelegramBotListener extends TelegramLongPollingBot {
     private final Config config;
     private final CommandFactory commandFactory;
     private final ContextMapper mapper;
+
+    @Getter
     private final Map<Long, UserState> userStates;
     private final MessageService messageService;
 
@@ -35,7 +38,7 @@ public class TelegramBotListener extends TelegramLongPollingBot {
     }
 
     @Override
-    public void onUpdateReceived(Update update) { //TODO обработка кнопок, нажатых пользователем
+    public void onUpdateReceived(Update update) {
         if (update.hasMessage() && update.getMessage().hasText()) {
             UserState user = findUser(update.getMessage().getChatId());
 
@@ -73,4 +76,6 @@ public class TelegramBotListener extends TelegramLongPollingBot {
     public String getBotUsername() {
         return config.getBotName();
     }
+
+
 }
