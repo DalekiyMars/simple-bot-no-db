@@ -15,6 +15,9 @@ public class RestartCommand implements DefaultCommand<SendMessage> {
         return refreshAllDataUser(userState);
     }
 
+    /**
+    * <p>Сбрасывает счетчик вопросов пользователя до первого вопроса для перепрохождения с нуля</p>
+    * */
     private SendMessage refreshAllDataUser (UserState userState){
         log.info("Пользователь {} хочет перепройти опрос", userState.getTelegramTag());
         userState.setCurrentQuestion(-1);

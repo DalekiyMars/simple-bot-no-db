@@ -14,7 +14,9 @@ import org.springframework.stereotype.Service;
 public class DataBaseListener {
     private final TelegramBotListener telegramBotListener;
 
-    @Scheduled(fixedRateString = "${bot.timer}") // прогоняется каждые 10 минут (пока что)
+    /**
+     * <p>С определенной в application.properties задержкой запускает запись всех пользователей, не допрошедших опрос, в базу данных</p>*/
+    @Scheduled(fixedRateString = "${bot.timer}")
     private void pullUsersToDB(){
         //FIXME прописать проверку на пустую хэшмапу
         log.info("задержка работает"); // TODO прописать перекидывание из хэшмапы ТГБотЛисенера данных в БД
