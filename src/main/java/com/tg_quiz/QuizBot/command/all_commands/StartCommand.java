@@ -21,6 +21,8 @@ public class StartCommand implements DefaultCommand<SendMessage> {
         return getAnswer(context.getUpdate());
     }
 
+    /**
+    *<p>Генерирует приветственное сообщение пользователю</p> */
     private SendMessage getAnswer(Update update) {
         final String answer = String.format(START_MESSAGE, update.getMessage().getChat().getFirstName());
         return SendMessage.builder()

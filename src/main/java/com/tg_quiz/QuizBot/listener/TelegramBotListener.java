@@ -5,6 +5,7 @@ import com.tg_quiz.QuizBot.common.UserState;
 import com.tg_quiz.QuizBot.config.Config;
 import com.tg_quiz.QuizBot.mapper.ContextMapper;
 import com.tg_quiz.QuizBot.service.MessageService;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -22,6 +23,8 @@ public class TelegramBotListener extends TelegramLongPollingBot {
     private final Config config;
     private final CommandFactory commandFactory;
     private final ContextMapper mapper;
+
+    @Getter
     private final Map<Long, UserState> userStates;
     private final MessageService messageService;
 
@@ -60,6 +63,11 @@ public class TelegramBotListener extends TelegramLongPollingBot {
         }
     }
 
+
+    /**
+    *<p>Ищет пользователя по chatID в хэшмапе, если его нет - добавляет его туда
+     * @param chatId ID чата бота с пользователем</p>
+    */
     private UserState findUser(long chatId){
         if (!userStates.containsKey(chatId)) {
             UserState userState = new UserState(chatId);
@@ -73,4 +81,6 @@ public class TelegramBotListener extends TelegramLongPollingBot {
     public String getBotUsername() {
         return config.getBotName();
     }
+
+
 }

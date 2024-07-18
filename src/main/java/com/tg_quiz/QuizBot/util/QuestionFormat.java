@@ -17,6 +17,8 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class QuestionFormat {
+    /**
+     * <p>Форматизирует вопрос - добавляет кнопки и тд</p>*/
     public SendMessage mapMessage(Context context, Question question, UserState user) {
         InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
         SendMessage sendMessage = SendMessage.builder()
@@ -29,11 +31,16 @@ public class QuestionFormat {
         return sendMessage;
     }
 
+    /**
+     * <p>Выводит кнопочки ответов - каждая в отдельной строке</p>*/
     private List<InlineKeyboardButton> getInlineKeyboardButtons(String answer) {
         List<InlineKeyboardButton> rowInline1 = new ArrayList<>();
         rowInline1.add(InlineKeyboardButton.builder().text(answer).callbackData(answer).build());
         return rowInline1;
     }
+
+    /**
+     * <p>Проверяет, на каком вопросе пользователь, чтобы добавить "ленивые" ответы - кнопку с именем и тп</p>*/
     private List<List<InlineKeyboardButton>> answersHandler(Context context, UserState user, Question question){
         List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
         if (question.getAnswers().isEmpty()){
