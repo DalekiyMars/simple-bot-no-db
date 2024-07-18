@@ -14,6 +14,9 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 public class MessageService {
     private final QuestionFormat questionFormat;
     private final QuestionService questionService;
+
+    /**
+     * <p>Вызывает новый вопрос пользователю и добавляет к нему кнопки из json файла с вопросами</p>*/
     public SendMessage createMessage(Context context, UserState user) {
         if (user.getCurrentQuestion() < questionService.getQuestions().getStairs().size() -1){
             user.setCurrentQuestion(user.getCurrentQuestion()+1);

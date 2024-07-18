@@ -63,6 +63,11 @@ public class TelegramBotListener extends TelegramLongPollingBot {
         }
     }
 
+
+    /**
+    *<p>Ищет пользователя по chatID в хэшмапе, если его нет - добавляет его туда
+     * @param chatId ID чата бота с пользователем</p>
+    */
     private UserState findUser(long chatId){
         if (!userStates.containsKey(chatId)) {
             UserState userState = new UserState(chatId);

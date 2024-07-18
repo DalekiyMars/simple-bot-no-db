@@ -19,6 +19,8 @@ public class StartCommand implements DefaultCommand<SendMessage> {
         return getAnswer(context.getUpdate());
     }
 
+    /**
+    *<p>Генерирует приветственное сообщение пользователю</p> */
     private SendMessage getAnswer(Update update) {
         final String answer = String.format("Hell0, %s, we present you our new bot to accept your request about creating telegram bot!\nAre you ready?", update.getMessage().getChat().getFirstName());
         final SendMessage message = new SendMessage();
