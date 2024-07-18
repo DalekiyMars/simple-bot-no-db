@@ -35,7 +35,7 @@ public class TelegramBotListener extends TelegramLongPollingBot {
     }
 
     @Override
-    public void onUpdateReceived(Update update) { //TODO обработка кнопок, нажатых пользователем
+    public void onUpdateReceived(Update update) {
         if (update.hasMessage() && update.getMessage().hasText()) {
             UserState user = findUser(update.getMessage().getChatId());
 

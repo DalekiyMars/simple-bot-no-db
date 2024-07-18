@@ -13,6 +13,9 @@ public class Constants {
 
     }
 
+    public static class Messages{
+        public static final String START_MESSAGE = "Hell0, %s, we present you our new bot to accept your request about creating telegram bot!\nAre you ready?";
+    }
     public static class Paths {
         public static final String QUESTIONS_PATH = "src/main/resources/json/questions.json";
         public static final String QUESTIONS = "Quests";
