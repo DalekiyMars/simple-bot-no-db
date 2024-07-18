@@ -4,7 +4,7 @@ import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static com.tg_quiz.QuizBot.constants.Constants.Tests.BASE_BOT_URI;
+import static com.tg_quiz.QuizBot.constants.TestConstants.URLs.BASE_BOT_URI;
 import static io.restassured.RestAssured.given;
 
 public class TelegramBotListenerTest {
