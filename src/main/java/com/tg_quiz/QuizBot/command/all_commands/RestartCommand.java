@@ -20,7 +20,7 @@ public class RestartCommand implements DefaultCommand<SendMessage> {
     * */
     private SendMessage refreshAllDataUser (UserState userState){
         log.info("Пользователь {} хочет перепройти опрос", userState.getTelegramTag());
-        userState.setCurrentQuestion(-1);
+        userState.setCurrentQuestion((short) 0);
 
         return SendMessage.builder()
                 .chatId(userState.getChatId())

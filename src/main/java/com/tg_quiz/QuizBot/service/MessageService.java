@@ -18,10 +18,10 @@ public class MessageService {
     /**
      * <p>Вызывает новый вопрос пользователю и добавляет к нему кнопки из json файла с вопросами</p>*/
     public SendMessage createMessage(Context context, UserState user) {
-        if (user.getCurrentQuestion() < questionService.getQuestions().getStairs().size() -1){
-            user.setCurrentQuestion(user.getCurrentQuestion()+1);
-            log.info("Пользователь {} получил вопрос {}", user.getTelegramTag(), questionService.getQuestions().getStairs().get(user.getCurrentQuestion()).getQuestion());
-            return questionFormat.mapMessage(context, questionService.getQuestions().getStairs().get(user.getCurrentQuestion()), user);
+        if (user.getCurrentQuestion() <= questionService.getQuestions().getStairs().size() -1){
+            user.setCurrentQuestion((short) (user.getCurrentQuestion()+1));
+            log.info("Пользователь {} получил вопрос {}", user.getTelegramTag(), questionService.getQuestions().getStairs().get(user.getCurrentQuestion()-1).getQuestion());
+            return questionFormat.mapMessage(context, questionService.getQuestions().getStairs().get(user.getCurrentQuestion()-1), user);
         }
         log.info("Пользователь {} закончил квиз", user.getTelegramTag());
         return SendMessage.builder()
