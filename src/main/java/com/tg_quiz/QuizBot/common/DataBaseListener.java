@@ -14,9 +14,6 @@ import org.springframework.stereotype.Service;
 public class DataBaseListener {
     private final TelegramBotListener telegramBotListener;
 
-    //LiquiBase
-    //JPA
-
     /**
      * <p>С определенной в application.properties задержкой запускает запись всех пользователей, не допрошедших опрос, в базу данных</p>*/
     @Scheduled(fixedRateString = "${bd.interval}")
