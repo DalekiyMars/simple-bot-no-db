@@ -1,6 +1,0 @@
-spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5435/quizbot
-    username: dalekiymars
-    password: secret
-    driverClassName: org.postgresql.Driver

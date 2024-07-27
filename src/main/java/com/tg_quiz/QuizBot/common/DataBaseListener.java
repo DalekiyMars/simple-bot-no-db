@@ -17,7 +17,7 @@ public class DataBaseListener {
     //TODO не прогоняется sql файл создания таблицы
     /**
      * <p>С определенной в application.properties задержкой запускает запись всех пользователей, не допрошедших опрос, в базу данных</p>*/
-    @Scheduled(fixedRateString = "${bd.interval}")
+    @Scheduled(fixedRateString = "${db.interval}")
     private void pullUsersToDB(){
         //FIXME прописать проверку на пустую хэшмапу
         log.info("задержка работает"); // TODO прописать перекидывание из хэшмапы ТГБотЛисенера данных в БД
