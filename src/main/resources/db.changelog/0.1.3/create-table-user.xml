@@ -11,13 +11,13 @@
             </not>
         </preConditions>
         <createTable tableName="users">
-            <column name="chatId" type="bigint">
+            <column name="chat_id" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="userTag" type="varchar(30)">
+            <column name="user_tag" type="varchar(30)">
 
             </column>
-            <column name="currentQuestion" type="int">
+            <column name="current_question" type="int">
 
             </column>
         </createTable>
