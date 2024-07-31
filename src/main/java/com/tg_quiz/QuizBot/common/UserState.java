@@ -9,8 +9,9 @@ import java.util.Map;
 @Data
 public class UserState {
 
-    private short currentQuestion;
-    private Map<String, String> answers;
+    private int currentQuestion;
+    private Map<Integer, String> answers;
+    //@Id
     private final long chatId;
     private String telegramTag;
     private LocalDateTime lastActivityTime;

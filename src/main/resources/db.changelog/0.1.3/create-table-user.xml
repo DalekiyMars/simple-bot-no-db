@@ -17,6 +17,9 @@
             <column name="userTag" type="varchar(30)">
 
             </column>
+            <column name="currentQuestion" type="int">
+
+            </column>
         </createTable>
     </changeSet>
 
