@@ -44,7 +44,7 @@ public class QuestionFormat {
     private List<List<InlineKeyboardButton>> answersHandler(Context context, UserState user, Question question){
         List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
         if (question.getAnswers().isEmpty()){
-            switch (user.getCurrentQuestion()){
+            switch (user.getCurrentQuestion()-1){
                 case 0:
                     log.info("Выведено имя пользователя в кнопках");
                     rowsInline.add(getInlineKeyboardButtons(context.getUpdate().getMessage().getChat().getFirstName()));
