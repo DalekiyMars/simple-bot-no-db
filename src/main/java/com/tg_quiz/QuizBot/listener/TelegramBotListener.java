@@ -1,17 +1,17 @@
 package com.tg_quiz.QuizBot.listener;
 
 import com.tg_quiz.QuizBot.command.CommandFactory;
+import com.tg_quiz.QuizBot.command.all_commands.SendUserStateToMyTgCommand;
 import com.tg_quiz.QuizBot.common.UserState;
 import com.tg_quiz.QuizBot.config.Config;
+import com.tg_quiz.QuizBot.constants.Constants;
 import com.tg_quiz.QuizBot.mapper.ContextMapper;
-import com.tg_quiz.QuizBot.service.MessageService;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,6 +19,7 @@ import java.util.Map;
 @Slf4j
 @Component
 public class TelegramBotListener extends TelegramLongPollingBot {
+    private final SendUserStateToMyTgCommand userStateToMyTgCommand;
 
     private final Config config;
     private final CommandFactory commandFactory;
@@ -26,43 +27,36 @@ public class TelegramBotListener extends TelegramLongPollingBot {
 
     @Getter
     private final Map<Long, UserState> userStates;
-    private final MessageService messageService;
 
-    public TelegramBotListener(Config config, CommandFactory commandFactory, ContextMapper mapper, MessageService messageService) {
+    public TelegramBotListener(SendUserStateToMyTgCommand userStateToMyTgCommand, Config config, CommandFactory commandFactory, ContextMapper mapper) {
         super(config.getBotToken());
+        this.userStateToMyTgCommand = userStateToMyTgCommand;
         this.config = config;
         this.commandFactory = commandFactory;
         this.mapper = mapper;
-        this.messageService = messageService;
         this.userStates = new HashMap<>();
     }
 
     @Override
     public void onUpdateReceived(Update update) {
-        if (update.hasMessage() && update.getMessage().hasText()) {
-            UserState user = findUser(update.getMessage().getChatId());
-
-            final var context = mapper.mapContext(update);
-            try {
-                if (context.getCommand() == null){
-                    this.execute(messageService.createMessage(context, user));
+        var user = getChatId(update);
+        final var context = mapper.mapContext(update);
+        try {
+            if (context.getCommand() == null){
+                if (user.getCurrentQuestion() > Constants.Messages.ANSWERS_NUMBER){
+                    userStateToMyTgCommand.executeCommand(context, user);//TODO нихуя не работает
                 }
-                this.execute(commandFactory.getCommand(context.getCommand()).executeCommand(context, user));
-            } catch (Exception e) {
+               user.setAnswerById(user.getCurrentQuestion(), getAnswerFromUser(update));
+               context.setCommand(Constants.Commands.NEXT_QUESTION);
+               Message message = new Message();
+               message.setText(getAnswerFromUser(update));
+               update.setMessage(message);
+            }
+            this.execute(commandFactory.getCommand(context.getCommand()).executeCommand(context, user));
+        } catch (Exception e) {
                 log.error("Произошла ошибка {}", e.getMessage());
-            }
-        } else if (update.hasCallbackQuery()){
-            try {
-                this.execute(SendMessage.builder()
-                        .chatId(update.getCallbackQuery().getMessage().getChatId())
-                        .text("Ваш ответ: " + update.getCallbackQuery().getData())
-                        .build());
-            } catch (TelegramApiException e) {
-                log.error("Произошла ошибка - не удалось получить ответ с кнопки - {}", e.getMessage());
-            }
         }
     }
-
 
     /**
     *<p>Ищет пользователя по chatID в хэшмапе, если его нет - добавляет его туда
@@ -74,9 +68,27 @@ public class TelegramBotListener extends TelegramLongPollingBot {
             userStates.put(chatId, userState);
         }
         return userStates.get(chatId);
-
     }
 
+    private UserState getChatId(Update update){
+        if (update.hasCallbackQuery()){
+            return findUser(update.getCallbackQuery().getMessage().getChatId());
+        }
+        if (update.hasMessage() && update.getMessage().hasText()) {
+            return findUser(update.getMessage().getChatId());
+        }
+        return new UserState();
+    }
+
+    private String getAnswerFromUser(Update update){
+        if (update.hasCallbackQuery()){
+            return update.getCallbackQuery().getData();
+        }
+        if (update.hasMessage() && update.getMessage().hasText()) {
+            return update.getMessage().getText();
+        }
+        return null;
+    }
     @Override
     public String getBotUsername() {
         return config.getBotName();

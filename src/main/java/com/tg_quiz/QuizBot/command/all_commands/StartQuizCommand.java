@@ -3,6 +3,7 @@ package com.tg_quiz.QuizBot.command.all_commands;
 import com.tg_quiz.QuizBot.command.DefaultCommand;
 import com.tg_quiz.QuizBot.common.Context;
 import com.tg_quiz.QuizBot.common.UserState;
+import com.tg_quiz.QuizBot.constants.Constants;
 import com.tg_quiz.QuizBot.service.MessageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +18,14 @@ public class StartQuizCommand implements DefaultCommand<SendMessage> {
     @Override
     public SendMessage executeCommand(Context context, UserState user){
         user.setTelegramTag(context.getUpdate().getMessage().getChat().getUserName());
-        return messageService.createMessage(context, user);
+        if (user.getCurrentQuestion() < 1){
+            return messageService.createMessage(context, user);
+        } else {
+            return SendMessage.builder()
+                    .chatId(user.getChatId())
+                    .text(Constants.Messages.NEEDED_ANSWER_FOR_PREVIOUS_QUESTION_ANSWER)
+                    .build();
+        }
     }
 
 

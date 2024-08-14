@@ -1,5 +1,6 @@
 package com.tg_quiz.QuizBot.command;
 
+import com.tg_quiz.QuizBot.command.all_commands.NextQuestionCommand;
 import com.tg_quiz.QuizBot.command.all_commands.RestartCommand;
 import com.tg_quiz.QuizBot.command.all_commands.StartCommand;
 import com.tg_quiz.QuizBot.command.all_commands.StartQuizCommand;
@@ -18,10 +19,11 @@ import static com.tg_quiz.QuizBot.constants.Constants.Commands.*;
 public class CommandFactory {
     private static Map<String, DefaultCommand<? extends BotApiMethodMessage>> commands = new HashMap<>();
 
-    public CommandFactory(StartCommand startCommand, StartQuizCommand startQuizCommand, RestartCommand restartCommand) {
+    public CommandFactory(StartCommand startCommand, StartQuizCommand startQuizCommand, RestartCommand restartCommand,  NextQuestionCommand nextQuestionCommand) {
         commands.put(START, startCommand);
         commands.put(GET_STARTED, startQuizCommand);
         commands.put(RESTART_QUIZ, restartCommand);
+        commands.put(NEXT_QUESTION, nextQuestionCommand);
     }
 
     public DefaultCommand<? extends BotApiMethodMessage> getCommand(String commandName) {

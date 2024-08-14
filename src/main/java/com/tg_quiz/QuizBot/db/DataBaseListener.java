@@ -1,7 +1,6 @@
 package com.tg_quiz.QuizBot.db;
 
 import com.tg_quiz.QuizBot.common.UserState;
-import com.tg_quiz.QuizBot.db.service.UserStateService;
 import com.tg_quiz.QuizBot.listener.TelegramBotListener;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -20,15 +19,15 @@ import java.util.List;
 public class DataBaseListener {
     private final TelegramBotListener telegramBotListener;
 
-    private final UserStateService usersController;
+    //private final UserStateService usersController;
 
     /**
      * <p>С определенной в application.properties задержкой запускает запись всех пользователей, не допрошедших опрос, в базу данных</p>*/
-    @Scheduled(fixedRateString = "${db.interval}")
-    private void pullUsersToDB(){
-
-        usersController.saveAllUsers(usersNeededWriteToDb());
-    }
+//    @Scheduled(fixedRateString = "${db.interval}")
+//    private void pullUsersToDB(){
+//
+//        usersController.saveAllUsers(usersNeededWriteToDb());
+//    }
 
     /**
      * <p>Возвращает лист всех юзеров, которые полностью прошли опрос либо не отвечали больше часа</p>*/

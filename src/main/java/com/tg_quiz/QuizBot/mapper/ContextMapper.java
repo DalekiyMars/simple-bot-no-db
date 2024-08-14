@@ -13,7 +13,11 @@ public class ContextMapper {
      * <p>Сплитит сообщение пользователя и пытается установить первое слово как команду для выполнения, иначе ставит команду null</p>*/
     public Context mapContext(Update update) {
         final Context context = new Context(update);
-        context.setCommand(getCommandFromUpdate(update.getMessage().getText()).orElse(null));
+        if (update.hasMessage() && update.getMessage().getText().startsWith("/"))
+            context.setCommand(getCommandFromUpdate(update.getMessage().getText()).orElse(null));
+        else
+            context.setCommand(null);
+
         return context;
     }
 

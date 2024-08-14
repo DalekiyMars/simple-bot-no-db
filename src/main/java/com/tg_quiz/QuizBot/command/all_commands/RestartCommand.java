@@ -3,6 +3,7 @@ package com.tg_quiz.QuizBot.command.all_commands;
 import com.tg_quiz.QuizBot.command.DefaultCommand;
 import com.tg_quiz.QuizBot.common.Context;
 import com.tg_quiz.QuizBot.common.UserState;
+import com.tg_quiz.QuizBot.constants.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -24,7 +25,7 @@ public class RestartCommand implements DefaultCommand<SendMessage> {
 
         return SendMessage.builder()
                 .chatId(userState.getChatId())
-                .text("Your data refreshed!")
+                .text(Constants.Messages.QUIZ_RESTARTED_MESSAGE)
                 .build();
     }
 }

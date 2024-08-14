@@ -22,7 +22,7 @@ public class QuestionFormat {
     public SendMessage mapMessage(Context context, Question question, UserState user) {
         InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
         SendMessage sendMessage = SendMessage.builder()
-                                .chatId(String.valueOf(context.getUpdate().getMessage().getChatId()))
+                                .chatId(user.getChatId())
                                 .text(question.getQuestion())
                                 .build();
 
@@ -44,15 +44,9 @@ public class QuestionFormat {
     private List<List<InlineKeyboardButton>> answersHandler(Context context, UserState user, Question question){
         List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
         if (question.getAnswers().isEmpty()){
-            switch (user.getCurrentQuestion()-1){
-                case 0:
-                    log.info("Выведено имя пользователя в кнопках");
-                    rowsInline.add(getInlineKeyboardButtons(context.getUpdate().getMessage().getChat().getFirstName()));
-                    break;
-                case 1:
-                    log.info("Выведено userName в кнопках");
-                    rowsInline.add(getInlineKeyboardButtons(context.getUpdate().getMessage().getChat().getUserName()));
-                    break;
+            if (user.getCurrentQuestion() - 1 == 0) {
+                log.info("Выведено имя пользователя в кнопках");
+                rowsInline.add(getInlineKeyboardButtons(context.getUpdate().getMessage().getChat().getFirstName()));
             }
         } else {
             for (var elem :
